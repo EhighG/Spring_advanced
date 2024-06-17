@@ -1,4 +1,4 @@
-package hello.advanced.v2;
+package hello.advanced.v2_param_sync;
 
 import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
