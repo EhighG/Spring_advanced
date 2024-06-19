@@ -1,4 +1,4 @@
-package hello.advanced.v1_trace_no_sync;
+package hello.advanced.app.v1_trace_no_sync;
 
 import lombok.extern.slf4j.Slf4j;
 

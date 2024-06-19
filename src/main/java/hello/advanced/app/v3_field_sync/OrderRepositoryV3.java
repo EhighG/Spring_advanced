@@ -1,4 +1,4 @@
-package hello.advanced.v3_field_sync;
+package hello.advanced.app.v3_field_sync;
 
 import hello.advanced.trace.TraceStatus;
 import hello.advanced.trace.logtrace.LogTrace;
