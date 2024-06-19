@@ -1,5 +1,6 @@
 package hello.advanced.v1_trace_no_sync;
 
+import hello.advanced.app.v1_trace_no_sync.ThreadLocalService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 

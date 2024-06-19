@@ -1,28 +1,27 @@
-package hello.advanced.v2_param_sync;
+package hello.advanced.app.v1_trace_no_sync;
 
-import hello.advanced.trace.TraceId;
 import hello.advanced.trace.TraceStatus;
-import hello.advanced.trace.hellotrace.HelloTraceV2;
+import hello.advanced.trace.hellotrace.HelloTraceV1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service // 안쪽의 @Component 어노테이션으로 인해 컴포넌트 스캔의 대상이 되고, 자동으로 스프링 빈으로 등록됨
 @RequiredArgsConstructor
-public class OrderServiceV2 {
+public class OrderServiceV1 {
 
-    private final OrderRepositoryV2 orderRepository;
-    private final HelloTraceV2 trace;
+    private final OrderRepositoryV1 orderRepository;
+    private final HelloTraceV1 trace;
 
 ////    @Autowired // 생성자가 하나면, 자동으로 Autowired가 됨.
 //    public OrderService(OrderRepositoryV1 orderRepository) {
 //        this.orderRepository = orderRepository;
 //    }
 
-    public void orderItem(TraceId traceId, String itemId) {
+    public void orderItem(String itemId) {
         TraceStatus status = null;
         try {
-            status = trace.beginSync(traceId, "OrderService.orderItem()");
-            orderRepository.save(status.getTraceId(), itemId);
+            status = trace.begin("OrderService.orderItem()");
+            orderRepository.save(itemId);
             trace.end(status);
         } catch (Exception e) {
             trace.exception(status, e);
