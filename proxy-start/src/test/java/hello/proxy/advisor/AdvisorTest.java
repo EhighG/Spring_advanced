@@ -11,6 +11,7 @@ import org.springframework.aop.MethodMatcher;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
+import org.springframework.aop.support.NameMatchMethodPointcut;
 
 import java.lang.reflect.Method;
 
@@ -45,6 +46,24 @@ public class AdvisorTest {
 
         // 직접 만든 포인트컷 기반 어드바이저 생성
         DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(new MyPointcut(), new TimeAdvice());
+        proxyFactory.addAdvisor(advisor);
+        ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
+
+        proxy.save();
+        proxy.find();
+    }
+
+    @Test
+    @DisplayName("스프링이 제공하는 포인트컷") // 이외에 aspectJ가 제공하는 수많은 포인트컷들이 있다. (AspectJExpressionPointcut)
+    void advisorTest3() {
+        ServiceInterface target = new ServiceImpl();
+        // 어떤 타겟에 프록시를 적용할지를 설정
+        ProxyFactory proxyFactory = new ProxyFactory(target);
+
+        // 스프링 제공 포인트컷 기반 어드바이저 생성
+        NameMatchMethodPointcut pointcut = new NameMatchMethodPointcut();
+        pointcut.setMappedName("save");
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, new TimeAdvice());
         proxyFactory.addAdvisor(advisor);
         ServiceInterface proxy = (ServiceInterface) proxyFactory.getProxy();
 
