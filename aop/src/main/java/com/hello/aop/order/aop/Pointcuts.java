@@ -12,7 +12,7 @@ public class Pointcuts {
     @Pointcut("execution(* *..*Service.*(..))")
     public void allService(){}
 
-    // allOrder && allService
+    // com.hello.aop.order 이하 패키지이면서, 타입 이름 패턴이 @Service인 것
     @Pointcut("allOrder() && allService()")
     public void orderAndService() {}
 }
